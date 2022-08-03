@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load static %}
+    <div style="text-align:center; max-width:500px; margin:4rem auto;">
+        <h3>
+            SIGN UP
+        </h3>
+        <form action="{% url 'accountapp:create_user' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3">
+        </form>
+    </div>
+{% endblock %}

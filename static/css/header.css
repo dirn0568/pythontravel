@@ -1,0 +1,14 @@
+.banner {
+    margin:auto;
+    display:flex;
+    width:80rem;
+}
+
+.banner div {
+    flex:1;
+}
+
+.banner div span {
+    background:#00FF00;
+    margin:auto;
+}
