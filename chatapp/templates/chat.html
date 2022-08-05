@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <div align="center">
+        <h1>채팅창</h1>
+    </div>
+    <p></p>
+    {% for list in chat_users %}
+        {% for delete_queryset in list %}
+            {% if delete_queryset.send_user == request.user %}
+                <div align="right">
+                    {{ delete_queryset.send_user }}
+                    <p></p>
+                    <div class="chat_box">
+                        {{ delete_queryset.chat_line }}
+                    </div>
+                    {% if delete_queryset.chat_img %}
+                        <p></p>
+                        {% if delete_queryset.chat_img_ext == '.png' or delete_queryset.chat_img_ext == '.GIF' or delete_queryset.chat_img_ext == '.jpg' %}
+                            <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {% if delete_queryset.chat_img_ext == '.mp4' or delete_queryset.chat_img_ext == '.webm' or delete_queryset.chat_img_ext == '.avi' or delete_queryset.chat_img_ext == '.wmv' %}
+                            <video src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {% if delete_queryset.chat_img_ext == '.mp3' or delete_queryset.chat_img_ext == '.flac' or delete_queryset.chat_img_ext == '.wav' %}
+                            <audio src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        <p></p>
+                        {{ delete_queryset.chat_time }}
+                        <p></p>
+                    {% else %}
+                        {{ delete_queryset.chat_time }}
+                        <p></p>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div align="left">
+                    {{ delete_queryset.send_user }}
+                    <p></p>
+                    <div class="chat_box">
+                        {{ delete_queryset.chat_line }}
+                    </div>
+                    {% if delete_queryset.chat_img %}
+                        <p></p>
+                        {% if delete_queryset.chat_img_ext == '.png' or delete_queryset.chat_img_ext == '.GIF' or delete_queryset.chat_img_ext == '.jpg' %}
+                            <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {% if delete_queryset.chat_img_ext == '.mp4' or delete_queryset.chat_img_ext == '.webm' or delete_queryset.chat_img_ext == '.avi' or delete_queryset.chat_img_ext == '.wmv' %}
+                            <video src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {% if delete_queryset.chat_img_ext == '.mp3' or delete_queryset.chat_img_ext == '.flac' or delete_queryset.chat_img_ext == '.wav' %}
+                            <audio src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                        {% endif %}
+                        {{ delete_queryset.chat_time }}
+                    {% else %}
+                        {{ delete_queryset.chat_time }}
+                        <p></p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    <form action="{% url 'chatapp:chat' pk=chat_pk %}" id="chat_data" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="chat_wrap">
+            <div class="input-div">
+                <textarea id="chat_send" name="chat_text" placeholder="PressEnterforsendmessage."></textarea>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript" src="{% static 'js/chat.js' %}"></script>
+</body>
+</html>

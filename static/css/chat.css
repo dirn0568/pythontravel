@@ -1,0 +1,5 @@
+.chat_wrap .header { font-size:14px; padding:15px 0; background:#F18C7E; color:white; text-align:center; }
+
+.chat_wrap .input-div { position:fixed; bottom:0; width:100%; background-color:#FFF; text-align:right;}
+
+.chat_wrap .input-div > textarea { width:30%; height:80px; border:none; padding:10px; border:1px solid #F18C7E;}
