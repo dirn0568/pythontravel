@@ -66,12 +66,17 @@
             {% endif %}
         {% endfor %}
     {% endfor %}
+    <input name="file_test" id="chat_test2" type="file" multiple>
     <form action="{% url 'chatapp:chat' pk=chat_pk %}" id="chat_data" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="chat_wrap">
-            <div class="input-div">
-                <textarea id="chat_send" name="chat_text" placeholder="PressEnterforsendmessage."></textarea>
-            </div>
+        <div>
+            <label style="width:100vw; height:100vh; background:#FF0000;" for="chat_test2">
+                <div class="chat_wrap">
+                    <div class="input-div">
+                        <textarea id="chat_send" name="chat_text" placeholder="PressEnterforsendmessage."></textarea>
+                    </div>
+                </div>
+            </label>
         </div>
     </form>
 

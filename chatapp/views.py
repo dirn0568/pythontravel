@@ -9,6 +9,8 @@ from chatapp.models import ChatModel
 
 def chatview(request, pk):
     if request.method == "POST":
+        print(request.POST, '혹시모르니 이것도')
+        print(request.FILES, '이거 맞나?')
         chat_text = request.POST.get('chat_text')
         chat_img = request.FILES.get('chat_line')
         receive = User.objects.filter(pk=pk)
