@@ -45,4 +45,3 @@ document.getElementById('chat_send').addEventListener('keydown', function(){
 //}
 
 
-
