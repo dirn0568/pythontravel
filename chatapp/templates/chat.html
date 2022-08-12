@@ -7,12 +7,18 @@
 <!-- oncontextmenu="return false" ondrag="return false" ondragend="return false" ondragenter="return false" ondragleave="return false" ondragover="return false" ondragstart="return false" onselectstart="return false" -->
 <body>
     {% load static %}
-    <label for="chat_test2">
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">
-    <div align="center">
-        <h1>채팅창</h1>
-    </div>
-    <p></p>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <form action="{% url 'chatapp:chat' pk=chat_pk %}" class="drop_data" id="chat_data" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input required="required" type="file" name="submit_file" id="chat_file" multiple>
+        <div align="center">
+            <h1>채팅창</h1>
+        </div>
+        <p></p>
         {% for list in chat_users %}
             {% for delete_queryset in list %}
                 {% if delete_queryset.send_user == request.user %}
@@ -25,7 +31,9 @@
                         {% if delete_queryset.chat_img %}
                             <p></p>
                             {% if delete_queryset.chat_img_ext == '.png' or delete_queryset.chat_img_ext == '.GIF' or delete_queryset.chat_img_ext == '.jpg' %}
-                                <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                                <a href="{{ delete_queryset.chat_img.url }}" download>
+                                    <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                                </a>
                             {% endif %}
                             {% if delete_queryset.chat_img_ext == '.mp4' or delete_queryset.chat_img_ext == '.webm' or delete_queryset.chat_img_ext == '.avi' or delete_queryset.chat_img_ext == '.wmv' %}
                                 <video src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
@@ -51,7 +59,9 @@
                         {% if delete_queryset.chat_img %}
                             <p></p>
                             {% if delete_queryset.chat_img_ext == '.png' or delete_queryset.chat_img_ext == '.GIF' or delete_queryset.chat_img_ext == '.jpg' %}
-                                <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                                <a href="{{ delete_queryset.chat_img.url }}" download>
+                                    <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                                </a>
                             {% endif %}
                             {% if delete_queryset.chat_img_ext == '.mp4' or delete_queryset.chat_img_ext == '.webm' or delete_queryset.chat_img_ext == '.avi' or delete_queryset.chat_img_ext == '.wmv' %}
                                 <video src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
@@ -68,34 +78,9 @@
                 {% endif %}
             {% endfor %}
         {% endfor %}
-    </label>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-    <h3>Drag N Drop file upload without AJAX Demo</h3>
-    <p>Try drag and dropping a file. :-)</p>
-
-    <form style="height:50rem; background:#00FF00;" action="{% url 'chatapp:chat' pk=chat_pk %}" id="chat_data" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input style="width:100%; height:100%; background:#A6A6A6" name="file_test" id="chat_test2" type="file" typemultiple>
-            <textarea id="chat_send" name="chat_text" placeholder="PressEnterforsendmessage."></textarea>
-        </input>
-        <div class="form-group file-upload" required="required">
-            <label class="cols-sm-2 control-label" for="document_file">File Upload</label><br>
-            <div class="cols-sm-10">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-file" aria-hidden="true"></i></span>
-                <div class="form-control" data-message="Click to select file or drag n drop it here">
-                  <input required="required" title="Click to select file or drag n drop it here" type="file" name="document[file]" id="document_file">
-                </div>
-              </div>
-            </div>
-          </div>
-
-        <label class="file-label" for="chooseFile">Choose File</label>
-        <input class="file" id="chooseFile" type="file" multiple>
+        <textarea id="chat_send" name="chat_text" placeholder="PressEnterforsendmessage."></textarea>
     </form>
+
     <script type="text/javascript" src="{% static 'js/chat.js' %}"></script>
 </body>
 </html>

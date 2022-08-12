@@ -9,21 +9,22 @@ from chatapp.models import ChatModel
 
 def chatview(request, pk):
     if request.method == "POST":
-        print(request.POST, '혹시모르니 이것도')
-        print(request.FILES, '이거 맞나?')
         chat_text = request.POST.get('chat_text')
-        chat_img = request.FILES.get('chat_line')
+        chat_file = request.FILES.getlist('submit_file')
         receive = User.objects.filter(pk=pk)
         for list in receive:
             receive_user = list
-        test_temp = str(chat_img)
-        name, ext = os.path.splitext(test_temp)
-        model = ChatModel(send_user=request.user,
-                            receive_user=receive_user,
-                            chat_line=chat_text,
-                            chat_img=name,
-                            chat_img_ext=ext)
-        model.save()
+        for i in range(len(chat_file)):
+            if i != 0:
+                chat_text = ''
+            file_temp = str(chat_file[i])
+            name, ext = os.path.splitext(file_temp)
+            model = ChatModel(send_user=request.user,
+                                receive_user=receive_user,
+                                chat_line=chat_text,
+                                chat_img=chat_file[i],
+                                chat_img_ext=ext)
+            model.save()
     context = {}
     chat_users_list = []
     chat_users_post_list = []
