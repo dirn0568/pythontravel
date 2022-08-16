@@ -1,6 +1,6 @@
 document.getElementById('chat_send').addEventListener('keydown', function(){
     if (window.event.keyCode == 13) {
-        document.getElementById('chat_data').submit();
+        document.getElementById('chat_data_text').submit();
     }
     console.log("안돼냐?")
 });
@@ -85,6 +85,11 @@ document.getElementById('chat_send').addEventListener('keydown', function(){
     var fileName = e.target.files[0].name;
     if (fileName) {
       $(e.target).parent().attr('data-message', fileName);
+      if (!confirm("정말로 파일을 전송하시겠습니까?")) {
+          alert("취소 되었습니다.");
+      } else {
+          document.getElementById('chat_data_file').submit();
+      }
     }
   });
 

@@ -1,66 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
 <!-- oncontextmenu="return false" ondrag="return false" ondragend="return false" ondragenter="return false" ondragleave="return false" ondragover="return false" ondragstart="return false" onselectstart="return false" -->
-<body>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <body style="background:#B2CCFF;">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
-    <form action="{% url 'chatapp:chat' pk=chat_pk %}" class="drop_data" id="chat_data" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input required="required" type="file" name="submit_file" id="chat_file" multiple>
-        <div align="center">
-            <h1>채팅창</h1>
-        </div>
-        <p></p>
-        {% for list in chat_users %}
-            {% for delete_queryset in list %}
-                {% if delete_queryset.send_user == request.user %}
-                    <div align="right">
-                        {{ delete_queryset.send_user }}
-                        <p></p>
-                        {% if delete_queryset.chat_img %}
-                            <div class="file_box">
-                                <div class="file_name">
-                                    {{ delete_queryset.chat_img_name }}
-                                </div>
-                            </div>
-                        {% else %}
-                            {{ delete_queryset.chat_line }}
+        <form action="{% url 'chatapp:chat' pk=chat_pk %}" class="drop_data" id="chat_data_file" name="test1" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input required="required" type="file" name="submit_file" id="chat_file" multiple>
+        </form>
+            <div align="center">
+                <h1>채팅창</h1>
+            </div>
+            <p></p>
+            {% for list in chat_users %}
+                {% for delete_queryset in list %}
+                    {% if delete_queryset.send_user == request.user %}
+                        <div align="right">
+                            {% if delete_queryset.chat_img %}
+                                <p></p>
+                                {% if delete_queryset.chat_img_ext == '.png' or delete_queryset.chat_img_ext == '.GIF' or delete_queryset.chat_img_ext == '.jpg' %}
+                                    <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                                {% endif %}
+                                {% if delete_queryset.chat_img_ext == '.mp4' or delete_queryset.chat_img_ext == '.webm' or delete_queryset.chat_img_ext == '.avi' or delete_queryset.chat_img_ext == '.wmv' %}
+                                    <video src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                                {% endif %}
+                                {% if delete_queryset.chat_img_ext == '.mp3' or delete_queryset.chat_img_ext == '.flac' or delete_queryset.chat_img_ext == '.wav' %}
+                                    <audio src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                                {% endif %}
+                                <p></p>
+                                {{ delete_queryset.chat_time|time }}
+                                <p></p>
+                            {% else %}
+                                        {{ delete_queryset.chat_time|time }}
+                                        <span class="chat_box_right">
+                                            {{ delete_queryset.chat_line }}
+                                        </span>
+                                        <p></p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div align="left">
+                            {{ delete_queryset.send_user }}
                             <p></p>
-                            {{ delete_queryset.chat_time }}
-                            <p></p>
-                        {% endif %}
-                    </div>
-                {% else %}
-                    <div align="left">
-                        {{ delete_queryset.send_user }}
-                        <p></p>
-                        {% if delete_queryset.chat_img %}
-                            <div class="file_box">
-                                <div>
-                                    {{ delete_queryset.chat_img_name }}
-                                </div>
-                            </div>
-                            {{ delete_queryset.chat_time }}
-                        {% else %}
-                            {{ delete_queryset.chat_line }}
-                            <p></p>
-                            {{ delete_queryset.chat_time }}
-                            <p></p>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                            {% if delete_queryset.chat_img %}
+                                <p></p>
+                                {% if delete_queryset.chat_img_ext == '.png' or delete_queryset.chat_img_ext == '.GIF' or delete_queryset.chat_img_ext == '.jpg' %}
+                                    <img src="{{ delete_queryset.chat_img.url }}" width="300" height="300" style="border-radius: 20px;">
+                                {% endif %}
+                                {% if delete_queryset.chat_img_ext == '.mp4' or delete_queryset.chat_img_ext == '.webm' or delete_queryset.chat_img_ext == '.avi' or delete_queryset.chat_img_ext == '.wmv' %}
+                                    <video src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                                {% endif %}
+                                {% if delete_queryset.chat_img_ext == '.mp3' or delete_queryset.chat_img_ext == '.flac' or delete_queryset.chat_img_ext == '.wav' %}
+                                    <audio src="{{ delete_queryset.chat_img.url }}" controls width="300" height="300" style="border-radius: 20px;">
+                                {% endif %}
+                                {{ delete_queryset.chat_time|time }}
+                            {% else %}
+                                        <span class="chat_box_left">
+                                            {{ delete_queryset.chat_line }}
+                                        </span>
+                                {{ delete_queryset.chat_time|time }}
+                                <p></p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-        <textarea id="chat_send" name="chat_text" placeholder="PressEnterforsendmessage."></textarea>
-    </form>
-
+        <form action="{% url 'chatapp:chat' pk=chat_pk %}" class="drop_data" id="chat_data_text" name="test2" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <textarea id="chat_send" name="chat_text" placeholder="PressEnterforsendmessage."></textarea>
+        </form>
+        <div class="chat_menu">
+            <label style="text-align:center; border-right:1px solid #FFFFFF;">
+                연결
+            </label>
+            <label style="text-align:center; border-right:1px solid #FFFFFF;">
+                나가기
+            </label>
+            <label for="chat_file" style="text-align:center;">
+                파일 전송
+            </label>
+        </div>
+    </body>
     <script type="text/javascript" src="{% static 'js/chat.js' %}"></script>
-</body>
 </html>

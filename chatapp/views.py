@@ -11,23 +11,24 @@ def chatview(request, pk):
     if request.method == "POST":
         chat_text = request.POST.get('chat_text')
         chat_file = request.FILES.getlist('submit_file')
-        print(request.FILES)
         receive = User.objects.filter(pk=pk)
         for list in receive:
             receive_user = list
-        model = ChatModel(send_user=request.user,
-                          receive_user=receive_user,
-                          chat_line=chat_text)
-        model.save()
-        for i in range(len(chat_file)):
-            file_temp = str(chat_file[i])
-            name, ext = os.path.splitext(file_temp)
+        if chat_text:
             model = ChatModel(send_user=request.user,
-                                receive_user=receive_user,
-                                chat_img=chat_file[i],
-                                chat_img_name=name,
-                                chat_img_ext=ext)
+                              receive_user=receive_user,
+                              chat_line=chat_text)
             model.save()
+        if chat_file:
+            for i in range(len(chat_file)):
+                file_temp = str(chat_file[i])
+                name, ext = os.path.splitext(file_temp)
+                model = ChatModel(send_user=request.user,
+                                    receive_user=receive_user,
+                                    chat_img=chat_file[i],
+                                    chat_img_name=name,
+                                    chat_img_ext=ext)
+                model.save()
     context = {}
     chat_users_list = []
     chat_users_post_list = []
