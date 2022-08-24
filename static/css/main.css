@@ -1,5 +1,27 @@
-
+* {
+    margin:0;
+    padding:0;
+}
 
 .bg > div {
     margin:auto;
+}
+
+h1 {
+    color:#FFFFFF;
+    font-size:4rem;
+    background:url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160420_156%2Fland1109_14611138368275w6FP_JPEG%2Faaa90950ef7955da518a99d3c47a1880.jpg&type=sc960_832");
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation: animate 3s linear infinite;
+}
+@keyframes animate{
+    from {
+        background-position: 0% 50%;
+    }
+    to {
+        background-position: 100% 50% 0%;
+    }
+
 }

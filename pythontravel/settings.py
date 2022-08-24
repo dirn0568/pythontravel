@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pythontravel.wsgi.application'
+ASGI_APPLICATION = 'pythontravel.asgi.application'
 
 
 # Database

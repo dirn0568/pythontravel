@@ -15,6 +15,6 @@ def index(request):
 
 def room(request, room_name):
     print(room_name, '룸 네임')
-    return render(request, 'chat/room.html', {
-        'room_name' : room_name
+    return render(request, 'room.html', {
+        'room_name': room_name
     })
