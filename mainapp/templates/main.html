@@ -1,14 +1,26 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <div class="bg">
-        <div style="width:80rem; height:50rem;">
-            <img src="{% static 'main/mainbg.jpg' %}" alt="" style="width:80rem; height:50rem;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<body>
+    <div class="login">
+        <div style="text-align:center; background:#0000FF;">
+            프로그램명
+        </div>
+        <div class="login_text">
+            <input type="text">
+            <input type="text">
+        </div>
+        <div>
+            로그인
+        </div>
+        <div>
+            회원가입
         </div>
     </div>
-    <h1>
-        움직이는 이미지
-    </h1>
-{% endblock %}
+</body>
+</html>

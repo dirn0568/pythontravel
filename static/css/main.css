@@ -3,19 +3,13 @@
     padding:0;
 }
 
-.bg > div {
-    margin:auto;
+body {
+    height:100vh;
+    background:url(water.jpg) no-repeat center;
+    background-size:cover;
+    /*animation: animate 3s linear infinite;*/
 }
 
-h1 {
-    color:#FFFFFF;
-    font-size:4rem;
-    background:url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160420_156%2Fland1109_14611138368275w6FP_JPEG%2Faaa90950ef7955da518a99d3c47a1880.jpg&type=sc960_832");
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation: animate 3s linear infinite;
-}
 @keyframes animate{
     from {
         background-position: 0% 50%;
@@ -24,4 +18,20 @@ h1 {
         background-position: 100% 50% 0%;
     }
 
+}
+
+/**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
+
+.login {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:20rem;
+    height:20rem;
+    background:#00FF00;
+}
+
+.login_text {
+
+    background:#0F0F0F;
 }
