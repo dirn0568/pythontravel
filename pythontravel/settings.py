@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-u3px7^vwf^s$x@rpmtzm#b+owlaytqx0zrt#_=7#!58kqm_d6x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.34.45.34']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -47,7 +47,16 @@ INSTALLED_APPS = [
 ]
 
 # Channels
-ASGI_APPLICATION = 'pythontravel.routing.application'
+ASGI_APPLICATION = 'pythontravel.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
