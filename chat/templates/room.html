@@ -5,11 +5,27 @@
     <meta charset="utf-8"/>
     <title>Chat Room</title>
 </head>
-<body>
+<body style="background:#B2CCFF;">
+    <div align="center">
+        <h1>채팅창</h1>
+    </div>
+
+
     <textarea id="chat-log" cols="100" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
+    <div class="chat_menu">
+        <label style="text-align:center; border-right:1px solid #FFFFFF;">
+            연결
+        </label>
+        <label style="text-align:center; border-right:1px solid #FFFFFF;">
+            나가기
+        </label>
+        <label style="text-align:center;">
+            파일 전송
+        </label>
+    </div>
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
