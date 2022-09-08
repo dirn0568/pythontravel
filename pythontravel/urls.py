@@ -24,4 +24,5 @@ urlpatterns = [
     path('account/', include('accountapp.urls')),
     path('chat/', include('chatapp.urls')),
     path('chat_test/', include('chat.urls')),
+    path('chat_test_app/', include('chat_test_app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

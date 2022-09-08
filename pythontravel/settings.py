@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mainapp',
     'accountapp',
     'chatapp',
+    'chat_test_app',
 ]
 
 # Channels

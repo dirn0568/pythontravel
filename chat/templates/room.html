@@ -6,27 +6,70 @@
     <meta charset="utf-8"/>
     <title>Chat Room</title>
 </head>
-<script src="{% static 'js/reconnecting-websocket.js' %}"></script>
+
+<style>
+    ul{
+        list-style:none;
+    }
+
+    .sent {
+        text-align:right;
+    }
+
+    .replies {
+        text-align:left;
+    }
+</style>
 
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    마지막방법 - 유저에 토큰 주고 토큰 유무에 따라서 채팅창에 연결시켜보기
+    <ul id="chat-log"></ul>
+    <!--<textarea id="chat-log" cols="100" rows="20"></textarea><br>-->
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
+    <!-- <script id="room-name" type="application/json">"방이름"</script>-->
     {{ room_name|json_script:"room-name" }}
+    cd
     <script>
+        document.querySelector('#chat-log').value += ('ㅂ바부팅' + '\n');
+        document.querySelector('#chat-log').value += ('ㅁㄴㅇㅁㄴㅇㄴㅁ팅' + '\n');
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const author = JSON.parse(document.getElementById('author').textContent);
 
-        const chatSocket = new ReconnectingWebSocket(
+        console.log(roomName); // 방이름 ex)lobby
+        console.log('홧팅');
+
+        // var username = {{ username }};
+        // console.log(username);
+
+        const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
             + '/ws/chat_test/'
             + roomName
             + '/'
         );
+        console.log(chatSocket); // url
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
+            const user_name = data.user_name;
+            console.log(data, 'data');
+            console.log(e.data);
+            console.log(user_name, 'user_name');
+            // document.querySelector('#chat-log').value += (data.message + '\n');
+            // 채팅추가기능
+            var msgListTag = document.createElement('li');
+            var pTag = document.createElement('p');
+            pTag.textContent = data.message;
+
+            if (author === user_name) {
+                msgListTag.className = 'sent';
+            } else {
+                msgListTag.className = 'replies';
+            }
+            msgListTag.appendChild(pTag);
+            document.querySelector('#chat-log').appendChild(msgListTag);
         };
 
         chatSocket.onclose = function(e) {
@@ -43,9 +86,11 @@
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
+
             chatSocket.send(JSON.stringify({
                 'message': message,
-                'command': 'new_message'
+                'command': 'new_message',
+                'author': author
             }));
             messageInputDom.value = '';
         };
