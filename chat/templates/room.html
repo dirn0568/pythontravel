@@ -29,7 +29,7 @@
     <input id="chat-message-submit" type="button" value="Send">
     <!-- <script id="room-name" type="application/json">"방이름"</script>-->
     {{ room_name|json_script:"room-name" }}
-    cd
+    <script id="author" type="application/json">"{{ request.user }}"</script>
     <script>
         document.querySelector('#chat-log').value += ('ㅂ바부팅' + '\n');
         document.querySelector('#chat-log').value += ('ㅁㄴㅇㅁㄴㅇㄴㅁ팅' + '\n');
