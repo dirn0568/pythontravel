@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
     <title>Title</title>
 </head>
+
 <body>
   연결중
+    {{ waiters_count }}
+    {{ text_data }}
+
+
+    {{ room_number|json_script:"room-number" }}
+
+    <script>
+        const roomnumber = JSON.parse(document.getElementById('room-number').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat_test/'
+            + roomnumber
+            + '/'
+        );
+        console.log(chatSocket); // url
+
+        const data = JSON.parse(e.data);
+        console.log(data);
+    </script>
+
 </body>
+
+
 </html>

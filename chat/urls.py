@@ -7,7 +7,8 @@ app_name = 'chat'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<str:room_name>/', views.room, name='room'),
+    path('play/<str:room_name>/', views.room, name='room'),
 
-    path('connecting/', views.connecting, name='connecting')
+    #########################################################################################################
+    path('<str:room_number>/', views.ChatMatchView, name='match'),
 ]
