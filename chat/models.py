@@ -15,7 +15,7 @@ class Message(models.Model):
         return Message.objects.order_by('-timestamp').all()[:10]
 
 
-#############################################################################################################################
+###########################################################################################################################################
 class RoomJoin(models.Model):
     join_user = models.OneToOneField(User, related_name='join_user', on_delete=models.CASCADE)
 
